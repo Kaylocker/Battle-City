@@ -46,6 +46,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void MovementLogic()
+    {
+        _rigidBody.velocity = _moveDirection * _speed * Time.deltaTime;
+    }
+
     private void Rotation()
     {
         if (Input.GetKey(KeyCode.J))
@@ -60,23 +65,12 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, _angleRotationZ);
     }
 
-    private void MovementLogic()
-    {
-        _rigidBody.velocity = _moveDirection * _speed * Time.deltaTime;
-    }
-
     private void ShootingInput()
     {
         if (Input.GetKeyDown(KeyCode.Space) && _isCanFire)
         {
             Shoot();
         }
-    }
-
-    private IEnumerator Reload()
-    {
-        yield return new WaitForSeconds(_shootingReloadTime);
-        _isCanFire = true;
     }
 
     private void Shoot()
@@ -86,5 +80,11 @@ public class Player : MonoBehaviour
         projectile.GetComponent<Projectile>().SetupDirection(transform.up);
         _isCanFire = false;
         StartCoroutine(Reload());
+    }
+
+    private IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(_shootingReloadTime);
+        _isCanFire = true;
     }
 }
