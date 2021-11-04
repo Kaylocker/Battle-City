@@ -1,27 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public event Action OnCreatedTank;
+    public event Action OnDestroyedTank;
 
     [SerializeField] private GameObject[] _enemies;
     [SerializeField] private GameObject[] _spawnPoints;
 
-    private Vector2 _target;
+    private EnemiesCountUI _enemiesUI;
+    private GameObject _target;
     private List<GameObject> _aliveEnemies = new List<GameObject>();
-    private const float TIME_DELAY_SPAWNING = 5, TIME_DELAY_CHECKING_COUNT_ENEMIES = 8f;
-    private const int MAX_ENEMIES = 5;
+    private const float TIME_DELAY_SPAWNING = 3f, TIME_DELAY_CHECKING_COUNT_ENEMIES = 4f;
+    private const int MAX_ENEMIES = 6;
 
     private void Start()
     {
         FindTarget();
+
         StartCoroutine(SpawnEnemy());
+    }
+
+    private void OnEnable()
+    {
+        _enemiesUI = FindObjectOfType<EnemiesCountUI>();
+
+        OnCreatedTank += _enemiesUI.SetActiveEnemy;
+        OnDestroyedTank += _enemiesUI.DeleteActiveEnemy;
+    }
+
+    private void OnDisable()
+    {
+        OnCreatedTank -= _enemiesUI.SetActiveEnemy;
+        OnDestroyedTank -= _enemiesUI.DeleteActiveEnemy;
     }
 
     private void FindTarget()
     {
-        _target = FindObjectOfType<Base>().transform.position;
+        _target = FindObjectOfType<Base>().gameObject;
     }
 
     private IEnumerator SpawnEnemy()
@@ -38,8 +58,9 @@ public class EnemySpawner : MonoBehaviour
         enemyComponent.SetBase(_target);
 
         _aliveEnemies.Add(enemy);
+        OnCreatedTank?.Invoke();
 
-        if (_aliveEnemies.Count >= MAX_ENEMIES)
+        if (_aliveEnemies.Count > MAX_ENEMIES)
         {
             StartCoroutine(SpawnEnemy());
         }
@@ -63,9 +84,10 @@ public class EnemySpawner : MonoBehaviour
             StartCoroutine(CheckIsCountEnemiesLowerMaximum());
         }
     }
-    
+
     private void RemoveDestroyedEnemyFromList(GameObject destroyedObject)
     {
         _aliveEnemies.Remove(destroyedObject);
+        OnDestroyedTank?.Invoke();
     }
 }

@@ -7,5 +7,6 @@ public class FatTank : Enemy
     private void Start()
     {
         _hitPoints += _hitPoints;
+        _scoreForKilled = 200;
     }
 }

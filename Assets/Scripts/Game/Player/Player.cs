@@ -7,6 +7,7 @@ public class Player : MonoBehaviour, IDamagable
 {
     public event Action<int> OnTakeDamage;
     public event Action OnGameOver;
+    public event Action OnShooted;
 
     [SerializeField] private GameObject _muzzle;
     [SerializeField] private GameObject _projectile;
@@ -23,16 +24,6 @@ public class Player : MonoBehaviour, IDamagable
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
-    }
-
-    private void OnEnable()
-    {
-        OnTakeDamage += TakeDamage;
-    }
-
-    private void OnDisable()
-    {
-        OnTakeDamage -= TakeDamage;
     }
 
     private void Update()
@@ -111,6 +102,7 @@ public class Player : MonoBehaviour, IDamagable
     public void TakeDamage(int damage)
     {
         _hitPoints -= damage;
+        OnTakeDamage?.Invoke(_hitPoints);
 
         if (_hitPoints <= 0)
         {

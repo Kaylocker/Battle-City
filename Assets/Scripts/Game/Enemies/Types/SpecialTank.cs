@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class SpecialTank : Enemy
 {
+    private void Start()
+    {
+        _scoreForKilled = 300;
+    }
 }

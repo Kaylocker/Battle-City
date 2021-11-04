@@ -7,5 +7,6 @@ public class FastTank : Enemy
     private void Start()
     {
         _speed += _speed;
+        _scoreForKilled = 100;
     }
 }

@@ -7,27 +7,30 @@ public class Enemy : MonoBehaviour,IDamagable
 {
     public event Action<int> OnTakeDamage;
     public event Action<GameObject> OnDestroyed;
+    public event Action<int> OnScoreChanged;
 
     [SerializeField] private GameObject _muzzle;
     [SerializeField] private GameObject _projectile;
     [SerializeField] protected float _speed;
 
-    protected Vector3 _targetPosition;
-    protected Vector3 _basePosition;
-    protected Vector3 _playerPosition;
+    private ScoreUI _score;
+    protected GameObject _target;
+    protected GameObject _base;
+    protected GameObject _player;
     protected Vector3[] _previousPositions = new Vector3[MOVEMENT_FRAMES];
     protected int _hitPoints = 1;
     private const int MOVEMENT_FRAMES = 3;
     private const float MINIMUM_STANDING_DISTANCE = 1f, RELOAD_TIME = 1f, SHOOTING_RATE = 3f, DELAY_BETWEEN_FINDING_PLAYER = 2f;
     private const float CORRECTION_ANGLE = 90f;
     private bool _isCanMove = true, _isCanFire = true;
-
+    protected int _scoreForKilled;
 
     private void OnEnable()
     {
-        OnTakeDamage += TakeDamage;
-
         SetStartPositions();
+
+        _score = FindObjectOfType<ScoreUI>();
+        OnScoreChanged += _score.SetScore;
 
         StartCoroutine(ObstaclesAvailabilityController());
         StartCoroutine(Shooting());
@@ -36,12 +39,12 @@ public class Enemy : MonoBehaviour,IDamagable
 
     private void OnDisable()
     {
-        OnTakeDamage -= TakeDamage;
+        OnScoreChanged -= _score.SetScore;
     }
 
     private void FixedUpdate()
     {
-        if (_isCanMove)
+        if (_isCanMove && _target!=null)
             Movement();
     }
 
@@ -53,23 +56,23 @@ public class Enemy : MonoBehaviour,IDamagable
         }
     }
 
-    public void SetBase(Vector3 basePosition)
+    public void SetBase(GameObject basePosition)
     {
-        _basePosition = new Vector3(basePosition.x, basePosition.y, basePosition.z);
-        SetCurrentTarget(_basePosition);
+        _base = basePosition;
+        SetCurrentTarget(_base);
     }
 
-    private void SetCurrentTarget(Vector3 target )
+    private void SetCurrentTarget(GameObject target )
     {
-        _targetPosition = target;
+        _target = target;
     }
 
     private void Movement()
     {
-        Vector3 direction = _targetPosition - transform.position;
+        Vector3 direction = _target.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle - CORRECTION_ANGLE, Vector3.forward);
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, _speed * Time.fixedDeltaTime);
     }
 
     private IEnumerator ObstaclesAvailabilityController()
@@ -147,6 +150,7 @@ public class Enemy : MonoBehaviour,IDamagable
         if (_hitPoints <= 0)
         {
             _hitPoints = 0;
+            OnScoreChanged?.Invoke(_scoreForKilled);
             OnDestroyed?.Invoke(gameObject);
             Destroy(gameObject);
         }
@@ -164,15 +168,14 @@ public class Enemy : MonoBehaviour,IDamagable
             if (item.TryGetComponent(out Player player))
             {
                 isFindedPlayer = true;
-                _playerPosition = player.gameObject.transform.position;
-                print("finded");
-                SetCurrentTarget(_playerPosition);
+                _player = player.gameObject;
+                SetCurrentTarget(_player);
             }
         }
 
         if (!isFindedPlayer)
         {
-            _targetPosition = _basePosition;
+            _target = _base;
         }
 
         StartCoroutine(FindingPlayerTank());
