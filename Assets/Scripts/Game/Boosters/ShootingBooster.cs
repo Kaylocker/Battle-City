@@ -6,7 +6,8 @@ public class ShootingBooster : Booster
     {
         if (collision.TryGetComponent(out Player player))
         {
-            Destroy(gameObject);
+            _pickUp.Play();
+            Invoke("DestroyObject", _pickUp.clip.length);
             player.StartIncreasingProjectileSpeed();
         }
     }

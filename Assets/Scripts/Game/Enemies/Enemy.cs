@@ -12,10 +12,13 @@ public class Enemy : MonoBehaviour,IDamagable
     public event Action<GameObject> OnDestroyed;
     public event Action<int> OnScoreChanged;
 
+    [SerializeField] private AudioClip _shootingSound;
+    [SerializeField] private AudioClip _takeDamageSound;
     [SerializeField] private GameObject _muzzle;
     [SerializeField] private GameObject _projectile;
     [SerializeField] protected float _speed;
 
+    private AudioSource _audioSource;
     private ScoreUI _score;
     protected Booster _booster;
     protected GameObject _target;
@@ -29,11 +32,13 @@ public class Enemy : MonoBehaviour,IDamagable
     private bool _isCanMove = true, _isCanFire = true;
     protected int _scoreForKilled;
 
+
     private void OnEnable()
     {
         SetStartPositions();
 
         _score = FindObjectOfType<ScoreUI>();
+        _audioSource = GetComponent<AudioSource>();
 
         OnScoreChanged += _score.SetScore;
         OnDestroyed += DropBooster;
@@ -141,6 +146,7 @@ public class Enemy : MonoBehaviour,IDamagable
         GameObject projectile = Instantiate(_projectile, _muzzle.transform.position, Quaternion.identity);
         projectile.transform.rotation = Quaternion.AngleAxis(transform.rotation.z, transform.forward);
         projectile.GetComponent<Projectile>().SetupDirection(transform.up);
+        _audioSource.PlayOneShot(_shootingSound);
         StartCoroutine(Reload());
     }
 
@@ -157,6 +163,7 @@ public class Enemy : MonoBehaviour,IDamagable
         if (_hitPoints <= 0)
         {
             _hitPoints = 0;
+            _audioSource.PlayOneShot(_takeDamageSound);
             OnScoreChanged?.Invoke(_scoreForKilled);
             OnDestroyed?.Invoke(gameObject);
             Destroy(gameObject);

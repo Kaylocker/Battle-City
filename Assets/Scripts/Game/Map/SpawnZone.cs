@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnZone : MonoBehaviour, ISpawnable
+public class SpawnZone : MonoBehaviour
 {
     private SpriteRenderer _sprite;
 

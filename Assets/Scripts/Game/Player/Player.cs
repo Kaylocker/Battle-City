@@ -9,12 +9,15 @@ public class Player : MonoBehaviour, IDamagable
     public event Action OnEndGame;
     public event Action OnShooted;
 
+    [SerializeField] private AudioClip _shootingSound;
+    [SerializeField] private AudioClip _takeDamageSound;
     [SerializeField] private GameObject _muzzle;
     [SerializeField] private GameObject _projectile;
     [SerializeField] private float _speed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _shootingReloadTime;
 
+    private AudioSource _audioSource;
     private Rigidbody2D _rigidBody;
     private Vector2 _moveDirection;
     private float _angleRotationZ;
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour, IDamagable
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -94,6 +98,7 @@ public class Player : MonoBehaviour, IDamagable
             projectileComponent.IncreaseSpeed();
         }
 
+        _audioSource.PlayOneShot(_shootingSound);
         _isCanFire = false;
         OnShooted?.Invoke();
         StartCoroutine(Reload());
@@ -113,6 +118,7 @@ public class Player : MonoBehaviour, IDamagable
         }
 
         _hitPoints -= damage;
+        _audioSource.PlayOneShot(_takeDamageSound);
         OnChangeHitpoints?.Invoke(_hitPoints);
 
         if (_hitPoints <= 0)
