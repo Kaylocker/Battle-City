@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class TimerUI : MonoBehaviour
 {
-    public event Action OnWin;
+    public event Action OnEndGame;
 
     [SerializeField] private Text _timer;
     private float _timeToWin;

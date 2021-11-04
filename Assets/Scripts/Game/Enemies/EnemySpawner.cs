@@ -15,13 +15,12 @@ public class EnemySpawner : MonoBehaviour
     private EnemiesCountUI _enemiesUI;
     private GameObject _target;
     private List<GameObject> _aliveEnemies = new List<GameObject>();
-    private const float TIME_DELAY_SPAWNING = 3f, TIME_DELAY_CHECKING_COUNT_ENEMIES = 4f;
+    private const float TIME_DELAY_SPAWNING = 2f, TIME_DELAY_CHECKING_COUNT_ENEMIES = 2f;
     private const int MAX_ENEMIES = 6;
 
     private void Start()
     {
         FindTarget();
-
         StartCoroutine(SpawnEnemy());
     }
 

@@ -34,4 +34,9 @@ public class Projectile : MonoBehaviour
         }
 
     }
+
+    public void IncreaseSpeed()
+    {
+        _speed += _speed;
+    }
 }

@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
-public class Enemy : MonoBehaviour,IDamagable
+
+//TODO: Рефактор, много обязанностей в классе
+public class Enemy : MonoBehaviour,IDamagable  
 {
     public event Action<int> OnTakeDamage;
     public event Action<GameObject> OnDestroyed;
@@ -14,13 +17,14 @@ public class Enemy : MonoBehaviour,IDamagable
     [SerializeField] protected float _speed;
 
     private ScoreUI _score;
+    protected Booster _booster;
     protected GameObject _target;
     protected GameObject _base;
     protected GameObject _player;
     protected Vector3[] _previousPositions = new Vector3[MOVEMENT_FRAMES];
     protected int _hitPoints = 1;
     private const int MOVEMENT_FRAMES = 3;
-    private const float MINIMUM_STANDING_DISTANCE = 1f, RELOAD_TIME = 1f, SHOOTING_RATE = 3f, DELAY_BETWEEN_FINDING_PLAYER = 2f;
+    private const float MINIMUM_STANDING_DISTANCE = 1f, RELOAD_TIME = 1f, SHOOTING_RATE = 3f, DELAY_BETWEEN_FINDING_PLAYER = 1f;
     private const float CORRECTION_ANGLE = 90f;
     private bool _isCanMove = true, _isCanFire = true;
     protected int _scoreForKilled;
@@ -30,16 +34,19 @@ public class Enemy : MonoBehaviour,IDamagable
         SetStartPositions();
 
         _score = FindObjectOfType<ScoreUI>();
-        OnScoreChanged += _score.SetScore;
 
+        OnScoreChanged += _score.SetScore;
+        OnDestroyed += DropBooster;
+
+        StartCoroutine(FindingPlayerTank());
         StartCoroutine(ObstaclesAvailabilityController());
         StartCoroutine(Shooting());
-        StartCoroutine(FindingPlayerTank());
     }
 
     private void OnDisable()
     {
         OnScoreChanged -= _score.SetScore;
+        OnDestroyed -= DropBooster;
     }
 
     private void FixedUpdate()
@@ -83,13 +90,13 @@ public class Enemy : MonoBehaviour,IDamagable
 
         yield return new WaitForSeconds(1);
 
-        SetPreviouslyPositionts();
+        SetPreviouslyPositions();
         CheckIsCanMoving();
 
         StartCoroutine(ObstaclesAvailabilityController());
     }
 
-    private void SetPreviouslyPositionts()
+    private void SetPreviouslyPositions()
     {
         for (int i = 0; i < _previousPositions.Length - 1; i++)
         {
@@ -179,5 +186,15 @@ public class Enemy : MonoBehaviour,IDamagable
         }
 
         StartCoroutine(FindingPlayerTank());
+    }
+
+    private void DropBooster(GameObject gameObject)
+    {
+        float random = Random.Range(0f, 1f);
+
+        if (random >= 0.1f)
+        {
+            Instantiate(_booster.gameObject, transform.position, Quaternion.identity);
+        }
     }
 }

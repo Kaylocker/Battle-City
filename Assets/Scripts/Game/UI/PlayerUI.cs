@@ -15,12 +15,12 @@ public class PlayerUI : MonoBehaviour
         ShowCurrentLivesStatus(MAX_HITPOINTS);
 
         _player = FindObjectOfType<Player>();
-        _player.OnTakeDamage += ShowCurrentLivesStatus;
+        _player.OnChangeHitpoints += ShowCurrentLivesStatus;
     }
 
     private void OnDisable()
     {
-        _player.OnTakeDamage -= ShowCurrentLivesStatus;
+        _player.OnChangeHitpoints -= ShowCurrentLivesStatus;
     }
 
     private void ShowCurrentLivesStatus(int hitpoints)

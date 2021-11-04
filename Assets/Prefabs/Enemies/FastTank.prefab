@@ -127,6 +127,7 @@ MonoBehaviour:
   _muzzle: {fileID: 9196063963517230178}
   _projectile: {fileID: 4179432046577263433, guid: 5beafb627e0942f4b8863a63339ae4fd, type: 3}
   _speed: 0.5
+  _shootingBooster: {fileID: 900041141496637255, guid: 8aff44fbdde35884186482c73b49cc3a, type: 3}
 --- !u!50 &7287884551189694119
 Rigidbody2D:
   serializedVersion: 4

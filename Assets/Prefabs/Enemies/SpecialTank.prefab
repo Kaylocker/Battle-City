@@ -178,3 +178,4 @@ MonoBehaviour:
   _muzzle: {fileID: 4607772675747325082}
   _projectile: {fileID: 2140459384655738517, guid: 89862e6eea0b54a449763449871b7f8a, type: 3}
   _speed: 0.4
+  _heart: {fileID: 6388027965592885889, guid: 2af2ec465892ccb4eb2d6a5e2dd62ca9, type: 3}

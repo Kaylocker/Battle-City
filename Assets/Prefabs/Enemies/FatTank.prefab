@@ -148,6 +148,7 @@ MonoBehaviour:
   _muzzle: {fileID: 7034162686947435323}
   _projectile: {fileID: 1364466674481717742, guid: 67ed9bb91b3df8c47b9e509c46fa2d35, type: 3}
   _speed: 0.3
+  _shield: {fileID: 1671992529383649240, guid: 2945f456362261e43aa219e3c6f08f25, type: 3}
 --- !u!1 &7034162686947435323
 GameObject:
   m_ObjectHideFlags: 0
