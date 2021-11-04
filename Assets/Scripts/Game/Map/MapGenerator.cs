@@ -6,8 +6,8 @@ public class MapGeneratorCell
 
 public class MapGenerator
 {
-    private int _width = 23;
-    private int _height = 15;
+    private int _width = 15;
+    private int _height = 11;
     public int WidthOffset { get; set; }
     public int HeightOffset { get; set; }
 

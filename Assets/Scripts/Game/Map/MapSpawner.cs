@@ -14,7 +14,7 @@ public class MapSpawner : MonoBehaviour
 
     private void GenerateBlocks()
     {
-        MapGenerator _mapGenerator = new MapGenerator();
+        _mapGenerator = new MapGenerator();
 
         SetOffsets();
 

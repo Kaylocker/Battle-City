@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject _projectile;

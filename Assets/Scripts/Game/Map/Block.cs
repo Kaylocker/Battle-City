@@ -8,5 +8,9 @@ public class Block : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if(collision.TryGetComponent(out Player spawn))
+        {
+            Destroy(gameObject);
+        }
     }
 }
