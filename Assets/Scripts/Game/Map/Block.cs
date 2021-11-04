@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class Block : MonoBehaviour
+public class Block : MonoBehaviour, IDamagable
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void TakeDamage(int damage)
     {
-        if (collision.TryGetComponent(out Projectile projectile))
-        {
-            Destroy(gameObject);
-        }
-        else if(collision.TryGetComponent(out Player spawn))
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

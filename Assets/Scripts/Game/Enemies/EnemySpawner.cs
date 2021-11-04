@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+
     [SerializeField] private GameObject[] _enemies;
     [SerializeField] private GameObject[] _spawnPoints;
 
     private Vector2 _target;
     private List<GameObject> _aliveEnemies = new List<GameObject>();
-    private const float TIME_DELAY_SPAWNING = 12f, TIME_DELAY_CHECKING_COUNT_ENEMIES = 8f;
+    private const float TIME_DELAY_SPAWNING = 5, TIME_DELAY_CHECKING_COUNT_ENEMIES = 8f;
     private const int MAX_ENEMIES = 5;
 
     private void Start()
@@ -23,7 +24,6 @@ public class EnemySpawner : MonoBehaviour
         _target = FindObjectOfType<Base>().transform.position;
     }
 
-
     private IEnumerator SpawnEnemy()
     {
         yield return new WaitForSeconds(TIME_DELAY_SPAWNING);
@@ -33,7 +33,9 @@ public class EnemySpawner : MonoBehaviour
 
         GameObject enemy = Instantiate(_enemies[type].gameObject, _spawnPoints[point].transform.position, Quaternion.identity);
         Enemy enemyComponent = enemy.GetComponent<Enemy>();
-        enemyComponent.SetTarget(_target);
+
+        enemyComponent.OnDestroyed += RemoveDestroyedEnemyFromList;
+        enemyComponent.SetBase(_target);
 
         _aliveEnemies.Add(enemy);
 
@@ -60,5 +62,10 @@ public class EnemySpawner : MonoBehaviour
         {
             StartCoroutine(CheckIsCountEnemiesLowerMaximum());
         }
+    }
+    
+    private void RemoveDestroyedEnemyFromList(GameObject destroyedObject)
+    {
+        _aliveEnemies.Remove(destroyedObject);
     }
 }

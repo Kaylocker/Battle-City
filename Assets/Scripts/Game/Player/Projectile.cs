@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class Projectile : MonoBehaviour
 {
     private Rigidbody2D _rigidBody;
@@ -28,9 +27,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Block projectile))
+        if(collision.TryGetComponent(out IDamagable damagable))
         {
+            damagable.TakeDamage(1);
             Destroy(gameObject);
         }
+
     }
 }
