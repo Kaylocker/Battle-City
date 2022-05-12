@@ -44,6 +44,9 @@ GameObject:
   - component: {fileID: 5166604233840640239}
   - component: {fileID: 5166604233840640236}
   - component: {fileID: 306663096}
+  - component: {fileID: 1521636393536697115}
+  - component: {fileID: 7215718045069543218}
+  - component: {fileID: 593360511533357706}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -150,11 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e7dcfde72801d40a519f409d782af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _muzzle: {fileID: 1990114834666632852}
-  _projectile: {fileID: 596636967127119818, guid: 309aaa54a4ab5bf4f8ae4fb9ac0d18c8, type: 3}
-  _speed: 100
-  _rotationSpeed: 100
-  _shootingReloadTime: 1
+  _settings: {fileID: 11400000, guid: 9df92f4762774f34ea6314f472c38f44, type: 2}
+  _takeDamageSound: {fileID: 8300000, guid: 8316fdd7c78f6a8438d16f0a6fdd31e7, type: 3}
 --- !u!61 &5166604233840640236
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -191,9 +191,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 29d12cf7325cee54393151652c660276, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -277,3 +277,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1521636393536697115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166604233840640238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001e928fd0fd7f04f8f2ad5f5a9d2611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 9df92f4762774f34ea6314f472c38f44, type: 2}
+--- !u!114 &7215718045069543218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166604233840640238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe34f1203a4b0244ae73be02f9bb0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: 9df92f4762774f34ea6314f472c38f44, type: 2}
+  _projectile: {fileID: 596636967127119818, guid: 309aaa54a4ab5bf4f8ae4fb9ac0d18c8, type: 3}
+  _muzzle: {fileID: 1990114834666632852}
+  _shootingSound: {fileID: 8300000, guid: 29d12cf7325cee54393151652c660276, type: 3}
+--- !u!114 &593360511533357706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166604233840640238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db9b848a9700ca44818e1071446be70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

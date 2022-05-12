@@ -1,14 +1,17 @@
 using UnityEngine;
+using BattleCity.Game.Player;
 
-public class Heart : Booster
+namespace BattleCity.Game.Boosters
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class Heart : Booster
     {
-        if(collision.TryGetComponent(out Player player))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            _pickUp.Play();
-            Invoke("DestroyObject", _pickUp.clip.length);
-            player.TakeHealth();
+            if (collision.TryGetComponent(out PlayerHealth player))
+            {
+                player.TakeHealth(_settings.heartCount);
+                DisableBooster(player);
+            }
         }
     }
 }

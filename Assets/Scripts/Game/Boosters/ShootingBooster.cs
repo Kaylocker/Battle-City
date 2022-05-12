@@ -1,14 +1,17 @@
 using UnityEngine;
+using BattleCity.Game.Player;
 
-public class ShootingBooster : Booster
+namespace BattleCity.Game.Boosters
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class ShootingBooster : Booster
     {
-        if (collision.TryGetComponent(out Player player))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            _pickUp.Play();
-            Invoke("DestroyObject", _pickUp.clip.length);
-            player.StartIncreasingProjectileSpeed();
+            if (collision.TryGetComponent(out PlayerShooting player))
+            {
+                player.StartIncreasingProjectileSpeed(_settings.shootIncreasingTime);
+                DisableBooster(player);
+            }
         }
     }
 }

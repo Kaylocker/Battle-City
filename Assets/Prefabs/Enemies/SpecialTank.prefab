@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 1249544214394786920}
   - component: {fileID: 6749564481202719073}
   - component: {fileID: 7528455510575971074}
+  - component: {fileID: -3167580802376922278}
+  - component: {fileID: -3613469446561026975}
   m_Layer: 0
   m_Name: SpecialTank
   m_TagString: Untagged
@@ -176,12 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752b203e85e32364db66d569aefc48bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootingSound: {fileID: 8300000, guid: 29d12cf7325cee54393151652c660276, type: 3}
   _takeDamageSound: {fileID: 8300000, guid: 8316fdd7c78f6a8438d16f0a6fdd31e7, type: 3}
-  _muzzle: {fileID: 4607772675747325082}
-  _projectile: {fileID: 2140459384655738517, guid: 89862e6eea0b54a449763449871b7f8a, type: 3}
-  _speed: 0.4
-  _heart: {fileID: 6388027965592885889, guid: 2af2ec465892ccb4eb2d6a5e2dd62ca9, type: 3}
+  _tankSettings: {fileID: 11400000, guid: 0e51cdcd7d49a70408797bafc96235c8, type: 2}
 --- !u!82 &7528455510575971074
 AudioSource:
   m_ObjectHideFlags: 0
@@ -278,3 +276,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3167580802376922278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777484302277077454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca8f04850993b114ca51389d22431c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
+  _tankSettings: {fileID: 11400000, guid: 0e51cdcd7d49a70408797bafc96235c8, type: 2}
+--- !u!114 &-3613469446561026975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777484302277077454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea95493355e08545927daae4613cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tankSettings: {fileID: 11400000, guid: 0e51cdcd7d49a70408797bafc96235c8, type: 2}
+  _projectile: {fileID: 2140459384655738517, guid: 89862e6eea0b54a449763449871b7f8a, type: 3}
+  _muzzle: {fileID: 4607772675747325082}
+  _shootingSound: {fileID: 8300000, guid: 29d12cf7325cee54393151652c660276, type: 3}

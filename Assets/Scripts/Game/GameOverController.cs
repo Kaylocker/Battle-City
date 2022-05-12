@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using BattleCity.Game.Player;
 public class GameOverController : MonoBehaviour
 {
     [SerializeField] private GameObject _gameOverMenu;
@@ -10,11 +10,11 @@ public class GameOverController : MonoBehaviour
     [SerializeField] private ScoreUI _scoreUI;
     [SerializeField] private Text _summaryScore;
 
-    private Player _player;
+    private PlayerHealth _player;
 
     private void OnEnable()
     {
-        _player = FindObjectOfType<Player>();
+        _player = FindObjectOfType<PlayerHealth>();
 
         _player.OnEndGame += SetActiveGameOverMenu;
         _base.OnEndGame += SetActiveGameOverMenu;

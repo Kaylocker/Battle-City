@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 6976494463454817406}
   - component: {fileID: 3958168405780964831}
   - component: {fileID: 5374748675899493972}
-  - component: {fileID: 6295632037025202506}
   - component: {fileID: 474296347179524986}
+  - component: {fileID: 3434803219901721266}
+  - component: {fileID: -2587649598819553977}
+  - component: {fileID: 8743645724213644537}
   m_Layer: 0
   m_Name: FatTank
   m_TagString: Untagged
@@ -134,24 +136,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6295632037025202506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418767379151598578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48483d9295d8f654bac0eb95a546119f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shootingSound: {fileID: 8300000, guid: 29d12cf7325cee54393151652c660276, type: 3}
-  _takeDamageSound: {fileID: 8300000, guid: 8316fdd7c78f6a8438d16f0a6fdd31e7, type: 3}
-  _muzzle: {fileID: 7034162686947435323}
-  _projectile: {fileID: 1364466674481717742, guid: 67ed9bb91b3df8c47b9e509c46fa2d35, type: 3}
-  _speed: 0.3
-  _shield: {fileID: 1671992529383649240, guid: 2945f456362261e43aa219e3c6f08f25, type: 3}
 --- !u!82 &474296347179524986
 AudioSource:
   m_ObjectHideFlags: 0
@@ -248,6 +232,50 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3434803219901721266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418767379151598578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca8f04850993b114ca51389d22431c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
+  _tankSettings: {fileID: 11400000, guid: c4a4905289ad84b4d9cc6d20a7fa8653, type: 2}
+--- !u!114 &-2587649598819553977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418767379151598578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea95493355e08545927daae4613cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tankSettings: {fileID: 11400000, guid: c4a4905289ad84b4d9cc6d20a7fa8653, type: 2}
+  _projectile: {fileID: 1364466674481717742, guid: 67ed9bb91b3df8c47b9e509c46fa2d35, type: 3}
+  _muzzle: {fileID: 7034162686947435323}
+  _shootingSound: {fileID: 8300000, guid: 29d12cf7325cee54393151652c660276, type: 3}
+--- !u!114 &8743645724213644537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418767379151598578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752b203e85e32364db66d569aefc48bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _takeDamageSound: {fileID: 8300000, guid: 8316fdd7c78f6a8438d16f0a6fdd31e7, type: 3}
+  _tankSettings: {fileID: 11400000, guid: c4a4905289ad84b4d9cc6d20a7fa8653, type: 2}
 --- !u!1 &7034162686947435323
 GameObject:
   m_ObjectHideFlags: 0

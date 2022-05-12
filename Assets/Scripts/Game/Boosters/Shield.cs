@@ -1,14 +1,17 @@
 using UnityEngine;
+using BattleCity.Game.Player;
 
-public class Shield : Booster
+namespace BattleCity.Game.Boosters
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class Shield : Booster
     {
-        if (collision.TryGetComponent(out Player player))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            _pickUp.Play();
-            Invoke("DestroyObject", _pickUp.clip.length);
-            player.MakePlayerUnbreakable();
+            if (collision.TryGetComponent(out PlayerHealth player))
+            {
+                player.MakePlayerUnbreakable(_settings.shieldTime);
+                DisableBooster(player);
+            }
         }
     }
 }

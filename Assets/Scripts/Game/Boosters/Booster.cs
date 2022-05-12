@@ -1,21 +1,18 @@
 using UnityEngine;
+using BattleCity.Game.Player.Interfaces;
+using BattleCity.Game.Boosters.Scriptables;
 
-public class Booster : MonoBehaviour
+namespace BattleCity.Game.Boosters
 {
-    protected AudioSource _pickUp;
-
-    protected void OnEnable()
+    public class Booster : MonoBehaviour
     {
-        _pickUp = GetComponent<AudioSource>();
-    }
+        [SerializeField] protected AudioClip _boosterSound;
+        [SerializeField] protected BoostersSettings _settings;
 
-    private void OnDisable()
-    {
-        Destroy(gameObject);
-    }
-
-    protected void DestroyObject()
-    {
-        Destroy(gameObject);
+        protected void DisableBooster(ISound audioSource)
+        {
+            audioSource.PlaySound(_boosterSound);
+            gameObject.SetActive(false);
+        }
     }
 }

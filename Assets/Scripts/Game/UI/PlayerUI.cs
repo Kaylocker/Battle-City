@@ -1,10 +1,11 @@
 using UnityEngine;
+using BattleCity.Game.Player;
 
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private GameObject[] _hearts;
 
-    private Player _player;
+    private PlayerHealth _player;
     private int _currentHitpoints;
     private const int MAX_HITPOINTS = 3;
 
@@ -14,7 +15,7 @@ public class PlayerUI : MonoBehaviour
 
         ShowCurrentLivesStatus(MAX_HITPOINTS);
 
-        _player = FindObjectOfType<Player>();
+        _player = FindObjectOfType<PlayerHealth>();
         _player.OnChangeHitpoints += ShowCurrentLivesStatus;
     }
 
